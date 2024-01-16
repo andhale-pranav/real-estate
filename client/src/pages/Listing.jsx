@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore from "swiper";
 import { useSelector } from "react-redux";
@@ -20,6 +20,7 @@ import Contact from "../components/Contact";
 
 export default function Listing() {
   SwiperCore.use([Navigation]);
+  const navigate = useNavigate();
   const [listing, setListing] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -119,7 +120,7 @@ export default function Listing() {
                   className="bg-green-900 w-full max-w-[200px] 
                   text-white text-center p-2 rounded-md"
                 >
-                  Rs.{+listing.regularPrice - +listing.discountedPrice} OFF
+                  Rs.{(+listing.regularPrice - +listing.discountedPrice).toLocaleString("en-US")} OFF
                 </p>
               )}
             </div>
@@ -156,12 +157,21 @@ export default function Listing() {
             {currentUser && listing.userRef !== currentUser._id && !contact && (
               <button
                 onClick={() => setContact(true)}
-                className="bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 p-3"
+                className="bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 p-3 mt-2"
               >
                 Contact landlord
               </button>
             )}
             {contact && <Contact listing={listing} />}
+
+            {currentUser && listing.userRef === currentUser._id && (
+              // <Link to={`/update-listing/${listing._id}`}>
+              <button 
+              onClick={() => navigate(`/update-listing/${listing._id}`)}
+              className="bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 p-3 mt-2">Edit Listing</button>
+              // </Link>
+            )}
+
           </div>
         </div>
       )}

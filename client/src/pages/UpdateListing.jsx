@@ -298,7 +298,7 @@ import {
                   type="number"
                   id="regularPrice"
                   min="1000"
-                  max="1000000"
+                  max="1000000000"
                   required
                   className="p-3 border-gray-300 rounded-lg"
                   onChange={handleChange}
@@ -317,7 +317,7 @@ import {
                   type="number"
                   id="discountedPrice"
                   min="0"
-                  max="1000000"
+                  max="1000000000"
                   required
                   className="p-3 border-gray-300 rounded-lg"
                   onChange={handleChange}
